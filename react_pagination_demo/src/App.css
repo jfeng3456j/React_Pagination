@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.App h1 {
+    margin: 1rem 0;
+    font-size: 70px;
+    color: #ffe400;
+    text-align: center;
+    text-decoration: underline;
+}
