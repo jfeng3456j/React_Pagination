@@ -48,7 +48,8 @@ function App() {
       <h1>Crypto Gallery</h1>
       {loading ? <p>Loading...</p> : null}
       <CryptoList coinsData={currentPosts} />
-      <Pagination totalPosts={coinsData.length}
+      <Pagination
+        totalPosts={coinsData.length}
         postPerPage={postPerPage}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage} />

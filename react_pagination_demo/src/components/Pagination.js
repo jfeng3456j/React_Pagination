@@ -2,17 +2,17 @@ import React from 'react'
 import './css/Pagination.css'
 
 const Pagination = ({ totalPosts, postPerPage, setCurrentPage, currentPage }) => {
-    let page = [];
+    let pages = [];
 
     for (let i = 1; i <= Math.ceil(totalPosts / postPerPage); i++) {
-        page.push(i);
+        pages.push(i);
     }
     return (
-        <div>
+        <div className='pagination'>
             {
-                page.map((page, index) => {
+                pages.map((page, index) => {
                     return (
-                        <button key={index} onClick={() => setCurrentPage(page)} clasName={page == currentPage ? 'active' : ''}> {page} </button>
+                        <button key={index} onClick={() => setCurrentPage(page)} className={page === currentPage ? "active" : ""}> {page} </button>
                     )
                 })
             }
