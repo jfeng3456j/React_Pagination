@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import Posts from "./Posts";
+import Pagination from "./Pagination";
 
 function ApiData() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPages, setPostsPerPage] = useState(10);
+  const [postsPerPage, setPostsPerPage] = useState(10);
 
   useEffect(() => {
     try {
@@ -25,12 +26,16 @@ function ApiData() {
     }
   }, []);
 
-  console.log(posts);
+  // get Current posts
+  const indexOfLastPost = currentPage * postsPerPage; // 1 * 10 = 10 (last index)
+  const indexOfFirstPost = indexOfLastPost - postsPerPage; // 10 - 10 = 0 (first index)
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost); // posts.slice(0, 10)
 
   return (
     <div className="container">
       <h1>API Data</h1>
-      <Posts posts={posts} loading={loading} className='container'/>
+      <Posts posts={posts} loading={loading} />
+      <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} />
     </div>
   );
 }
