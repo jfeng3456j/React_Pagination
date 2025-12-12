@@ -35,8 +35,8 @@ function ApiData() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="container">
-      <h1>API Data</h1>
+    <div className="container mb-2">
+      <h4>API Data</h4>
       <Posts posts={currentPosts} loading={loading} />
       <Pagination
         postsPerPage={postsPerPage}

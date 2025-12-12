@@ -9,7 +9,7 @@ function App() {
         <p> Check out feature (f) branch to view code implementations </p>
       </header>
 
-      <div className='container mt-5'>
+      <div className='container mt-2'>
         <ApiData />
       </div>
 
