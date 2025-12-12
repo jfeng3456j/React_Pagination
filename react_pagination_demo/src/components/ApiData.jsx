@@ -31,11 +31,18 @@ function ApiData() {
   const indexOfFirstPost = indexOfLastPost - postsPerPage; // 10 - 10 = 0 (first index)
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost); // posts.slice(0, 10)
 
+  //onclick change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="container">
       <h1>API Data</h1>
-      <Posts posts={posts} loading={loading} />
-      <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} />
+      <Posts posts={currentPosts} loading={loading} />
+      <Pagination
+        postsPerPage={postsPerPage}
+        totalPosts={posts.length}
+        paginate={paginate}
+      />
     </div>
   );
 }

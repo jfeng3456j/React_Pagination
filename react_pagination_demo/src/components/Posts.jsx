@@ -4,17 +4,18 @@ const Posts = ({ posts, loading }) => {
   }
 
   return (
-    <ol className="list-group mb-4">
+    <ul className="list-group mb-4">
       {posts.map((post) => (
         <li
           key={post.id}
           className="list-group-item"
           style={{ textAlign: "left" }}
         >
+          {post.id} ...
           {post.title}
         </li>
       ))}
-    </ol>
+    </ul>
   );
 };
 

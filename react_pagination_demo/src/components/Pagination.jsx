@@ -1,4 +1,4 @@
-const Pagination = ({ postsPerPage, totalPosts }) => {
+const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
@@ -7,14 +7,20 @@ const Pagination = ({ postsPerPage, totalPosts }) => {
 
   return (
     <nav>
-      <ul>
-        {pageNumbers.map((number) => {
+      <ul className="pagination justify-content-center">
+        <a className="page-link" href="!#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+        {pageNumbers.map((number) => (
           <li key={number} className="page-item">
-            <a href="!#" className="page-link">
+            <a href="!#" onClick={() => paginate(number)} className="page-link">
               {number}
             </a>
-          </li>;
-        })}
+          </li>
+        ))}
+        <a className="page-link" href="!#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
       </ul>
     </nav>
   );
