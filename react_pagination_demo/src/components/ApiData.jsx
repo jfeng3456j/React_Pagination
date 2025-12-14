@@ -6,7 +6,7 @@ function ApiData() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10);
+  const [postsPerPage] = useState(7);
 
   useEffect(() => {
     try {
