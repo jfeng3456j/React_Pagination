@@ -6,9 +6,9 @@ const Posts = ({ posts, loading }) => {
   return (
     <div
       className="table-responsive mb-4"
-      style={{ maxHeight: "600px", overflowy: "auto" }}
+      style={{ maxHeight: "600px", minHeight: "600px", overflowY: "auto" }}
     >
-      <table className="table table-striped table-hover">
+      <table className="table table-striped table-hover mb-0">
         <thead>
           <tr>
             <th scope="col" style={{ width: "2.5%" }}>
