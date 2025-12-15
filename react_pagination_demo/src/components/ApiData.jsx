@@ -27,9 +27,9 @@ function ApiData() {
   }, []);
 
   // get Current posts
-  const indexOfLastPost = currentPage * postsPerPage; // 1 * 10 = 10 (last index)
-  const indexOfFirstPost = indexOfLastPost - postsPerPage; // 10 - 10 = 0 (first index)
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost); // posts.slice(0, 10)
+  const indexOfLastPost = currentPage * postsPerPage; // 1 * 7 = 7 (last index)
+  const indexOfFirstPost = indexOfLastPost - postsPerPage; // 7 - 7 = 0 (first index)
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost); // posts.slice(0, 7)
 
   //onclick change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
