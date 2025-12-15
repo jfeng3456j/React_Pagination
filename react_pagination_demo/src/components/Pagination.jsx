@@ -1,10 +1,5 @@
 const Pagination = ({ postsPerPage, totalPosts, currentPage, paginate }) => {
-  const pageNumbers = [];
   const totalPages = Math.ceil(totalPosts / postsPerPage);
-
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    pageNumbers.push(i);
-  }
 
   //Ellipses logic
   const getPageNum = () => {
@@ -13,7 +8,7 @@ const Pagination = ({ postsPerPage, totalPosts, currentPage, paginate }) => {
     const maxVisiblePages = 5; // Maximum number of visible pages
 
     if (totalPages <= maxVisiblePages + 2) {
-      //display all pages if total pages < 7 (5 + 2 ellipses)
+      //display all pages if total pages <= 7 (5 + 2 ellipses)
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
@@ -63,7 +58,7 @@ const Pagination = ({ postsPerPage, totalPosts, currentPage, paginate }) => {
     return pages;
   };
 
-  const pageNumtoDisplay = getPageNum();
+  const pageNumToDisplay = getPageNum();
 
   const handleEllipsisClick = (type) => {
     if (type === "ellipsis-start") {
@@ -116,27 +111,42 @@ const Pagination = ({ postsPerPage, totalPosts, currentPage, paginate }) => {
         </li>
 
         {/* display page numbers and  ellipses logic */}
-        {pageNumbers.map((number) => (
+        {pageNumToDisplay.map((number, index) => (
           <li
-            key={number}
-            className={`page-item ${currentPage === number ? "active" : ""}`}
+            key={index}
+            className={`page-item ${number === currentPage ? "active" : ""}
+                      ${typeof number === "string" ? "ellipsis" : ""}`}
           >
-            <a
-              href="!#"
-              onClick={(e) => {
-                e.preventDefault();
-                paginate(number);
-              }}
-              className="page-link"
-            >
-              {number}
-            </a>
+            {typeof number === "string" ? (
+              <a
+                href="!#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleEllipsisClick(number);
+                }}
+                className="page-link"
+                title="Jump to nearby pages"
+              >
+                ...
+              </a>
+            ) : (
+              <a
+                href="!#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  paginate(number);
+                }}
+                className="page-link"
+              >
+                {number}
+              </a>
+            )}
           </li>
         ))}
         {/* next page button */}
         <li
           className={`page-item ${
-            currentPage === pageNumbers.length ? "disabled" : ""
+            currentPage === totalPages ? "disabled" : ""
           }`}
         >
           <a
@@ -145,7 +155,7 @@ const Pagination = ({ postsPerPage, totalPosts, currentPage, paginate }) => {
             aria-label="Next"
             onClick={(e) => {
               e.preventDefault();
-              if (currentPage < pageNumbers.length) {
+              if (currentPage < totalPages) {
                 paginate(currentPage + 1);
               }
             }}
