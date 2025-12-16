@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import Posts from "./Posts";
 import Pagination from "./Pagination";
-import { API } from "../Constants/VarConstants";
+import { API, PaginationConstants } from "../Constants/VarConstants";
 
 function ApiData() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(7);
+  const [currentPage, setCurrentPage] = useState(
+    PaginationConstants.DEFAULT_CURRENT_PAGE
+  ); //1
+  const [postsPerPage] = useState(PaginationConstants.DEFAULT_POSTS_PER_PAGE); //7
 
   useEffect(() => {
     try {
