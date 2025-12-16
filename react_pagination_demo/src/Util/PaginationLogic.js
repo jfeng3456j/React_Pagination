@@ -1,4 +1,4 @@
-import PaginationConstants from "../Constants/PaginationConstants";
+import { PaginationConstants } from "../Constants/VarConstants";
 
 //Ellipses logic
 export const getPageNum = (currentPage, totalPages) => {

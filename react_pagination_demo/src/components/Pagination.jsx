@@ -1,7 +1,7 @@
 import PaginationNavButton from "./PaginationNavButton";
 import PageNumButton from "./PageNumButton";
 import PageEllipsisButton from "./PageEllipsisButton";
-import { getPageNum, handleEllipsisClick } from "../Util/PaginationLogic";
+import { getPageNum } from "../Util/PaginationLogic";
 
 const Pagination = ({ postsPerPage, totalPosts, currentPage, paginate }) => {
   const totalPages = Math.ceil(totalPosts / postsPerPage);
@@ -26,43 +26,28 @@ const Pagination = ({ postsPerPage, totalPosts, currentPage, paginate }) => {
           paginate={paginate}
         />
         {/* display page numbers and ellipsis logic */}
-        {pageNumToDisplay.map((number, index) => (
-          <li
-            key={index}
-            className={`page-item ${number === currentPage ? "active" : ""}
-                      ${typeof number === "string" ? "ellipsis" : ""}`}
-          >
-            {typeof number === "string" ? (
-              <a
-                href="!#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleEllipsisClick(
-                    number,
-                    currentPage,
-                    totalPages,
-                    paginate
-                  );
-                }}
-                className="page-link"
-                title="Jump to nearby pages"
-              >
-                ...
-              </a>
-            ) : (
-              <a
-                href="!#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  paginate(number);
-                }}
-                className="page-link"
-              >
-                {number}
-              </a>
-            )}
-          </li>
-        ))}
+        {pageNumToDisplay.map((number, index) => {
+          if (typeof number === "string") {
+            return (
+              <PageEllipsisButton
+                key={index}
+                type={number}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                paginate={paginate}
+              />
+            );
+          } else {
+            return (
+              <PageNumButton
+                key={index}
+                number={number}
+                currentPage={currentPage}
+                paginate={paginate}
+              />
+            );
+          }
+        })}
         {/* next page button */}
         <PaginationNavButton
           aria={"Next"}

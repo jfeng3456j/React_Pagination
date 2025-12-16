@@ -5,30 +5,28 @@ const PaginationNavButton = (props) => {
     currentPage,
     targetPageNum = 1,
     pageNum = 1,
-    disabled = false,
     paginate,
   } = props;
 
   const handleClick = (e) => {
     e.preventDefault();
 
-    if (!disabled && currentPage !== targetPageNum) {
+    if (currentPage !== targetPageNum) {
       paginate(pageNum);
     } else {
       console.log("Target page is reached");
     }
   };
 
-  const isDisabled = disabled || currentPage === targetPageNum;
-
   return (
-    <li className={`page-item ${isDisabled ? "disabled" : ""}`}>
+    <li
+      className={`page-item ${currentPage === targetPageNum ? "disabled" : ""}`}
+    >
       <a
         className="page-link"
         href="#!"
         aria-label={aria}
         onClick={handleClick}
-        // style={isDisabled ? { pointerEvents: "none" } : {}}
       >
         <span aria-hidden="true" dangerouslySetInnerHTML={{ __html: icon }} />
       </a>
