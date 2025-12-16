@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Posts from "./Posts";
 import Pagination from "./Pagination";
+import { API } from "../Constants/PaginationConstants";
 
 function ApiData() {
   const [posts, setPosts] = useState([]);
@@ -12,9 +13,7 @@ function ApiData() {
     try {
       const fetchData = async () => {
         setLoading(true);
-        const response = await fetch(
-          "https://jsonplaceholder.typicode.com/posts"
-        );
+        const response = await fetch(API.TYPICODE_API_DATA);
         const data = await response.json();
         setPosts(data);
         setLoading(false);
