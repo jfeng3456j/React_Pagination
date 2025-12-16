@@ -5,6 +5,8 @@ export const getPageNum = (currentPage, totalPages) => {
     const pages = [];
     const maxVisiblePages = PaginationConstants.DEFAULT_MAX_VISIBLE_PAGES; // Maximum number of visible pages
 
+
+
     if (totalPages <= maxVisiblePages + 2) {
         //display all pages if total pages <= 7 (visible pages + 2 ellipses)
         for (let i = 1; i <= totalPages; i++) {
@@ -14,44 +16,38 @@ export const getPageNum = (currentPage, totalPages) => {
         return pages;
     }
 
-    // display first page
+    //always display first page
     pages.push(1);
 
-    //display ellipsis at 2 and > 3
-    let start = Math.max(2, currentPage - 1);
-    let end = Math.min(totalPages - 1, currentPage + 1);
+    // calculate middle pages
+    if (currentPage <= 4) {
+        // near beginning show 2, 3, 4, 5
+        for (let i = 2; i <= maxVisiblePages; i++) {
+            pages.push(i);
+        }
 
-    //adjust near beginning
-    if (currentPage <= 3) {
-        end = 4;
-    }
+        //add ellipsis and last pages
+        pages.push("ellipsis-end");
 
-    //adjust near end
-    if (currentPage >= totalPages - 2) {
-        start = totalPages - 3;
-    }
+    } else if (currentPage >= totalPages - 3) {
+        pages.push("ellipsis-start")
 
-    //add ellipsis after 1st page
-    if (start > 2) {
-        pages.push("ellipsis-start");
-    }
-
-    //add middle pages
-    for (let i = start; i <= end; i++) {
-        if (i > 1 && i < totalPages) {
+        //set last 3 pages
+        for (let i = totalPages - 4; i < totalPages; i++) {
             pages.push(i);
         }
     }
-
-    //add ellipsis before last page
-    if (end < totalPages - 1) {
+    else {
+        // middle: show current - 1, current, current + 1
+        pages.push("ellipsis-start");
+        pages.push(currentPage - 1);
+        pages.push(currentPage);
+        pages.push(currentPage + 1);
         pages.push("ellipsis-end");
     }
 
-    // always display last pages
-    if (totalPages > 1) {
-        pages.push(totalPages);
-    }
+    // always display last page
+    pages.push(totalPages);
 
     return pages;
 };
@@ -68,6 +64,14 @@ export const handleEllipsisClick = (type, currentPage, totalPages, paginate) => 
             totalPages - 1,
             currentPage + ellipsis_pages_jump
         );
-        paginate(targetPage);
+
+        //near beginning, jump to last 3rd page
+        if (currentPage <= 4) {
+            const jumpToNearEnd = Math.max(5, totalPages - 3);
+            paginate(jumpToNearEnd);
+        } else {
+            paginate(targetPage);
+        }
     }
+
 };
